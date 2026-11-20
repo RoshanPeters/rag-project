@@ -1,5 +1,7 @@
 # rag-project
 
+[![CI](https://github.com/RoshanPeters/rag-project/actions/workflows/ci.yml/badge.svg)](https://github.com/RoshanPeters/rag-project/actions/workflows/ci.yml)
+
 A Retrieval-Augmented Generation (RAG) service built step by step, from primitives up, as a learning project.
 
 ## Run locally
