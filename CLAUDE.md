@@ -19,9 +19,9 @@
 - ruff (lint/format), pytest
 
 ## Roadmap
-**Phase 0 — Foundations.** Repo, FastAPI `/health`, pytest, ruff, GitHub Actions CI, branch protection. *(current phase)*
+**Phase 0 — Foundations.** Repo, FastAPI `/health`, pytest, ruff, GitHub Actions CI, branch protection.
 
-**Docker primer** (start of Phase 1) — images vs containers, Dockerfile basics, Compose, volumes, ports.
+**Docker primer** (start of Phase 1) — images vs containers, Dockerfile basics, Compose, volumes, ports. *(current phase)*
 
 **Phase 1 — Naive RAG end to end.** Load docs → chunk (fixed size + overlap) → embed → store in pgvector → top-k similarity search → prompt with chunks → answer with citations. `/ingest` and `/query` endpoints. Postgres in Docker Compose.
 - **Database migrations with Alembic** from the first table: create the `documents`/`chunks` schema and the pgvector extension via migrations, never by hand. Practise a second migration (e.g. add a metadata column) and a downgrade. Later, migrations run automatically as a deploy step in Phase 6.
@@ -67,15 +67,15 @@ rag-project/
 **Step-by-step guide (Parts A–K) and status**
 - [x] **A. Tools** — Homebrew (added to PATH via `~/.zprofile`), uv, gh, git 2.56 (Homebrew). git user.name/email set.
 - [x] **B. Project** — `uv init --package --name rag --python 3.12 rag-project`; `uv add fastapi uvicorn`; `uv add --dev pytest httpx ruff`. VS Code interpreter = `.venv/bin/python`. Branch renamed `master` → `main` (no commits yet).
-- [ ] **C. `/health`** — `src/rag/main.py`: FastAPI instance `app`; `GET /health` → `{"status": "ok"}`. Run `uv run uvicorn rag.main:app --reload`, explore `/docs`, `curl -i`. Break it: rename `app`. ← **NEXT**
-- [ ] **D. Test** — `tests/test_health.py` with `TestClient`: assert status 200 and body. `uv run pytest`. Break it: expect `"okay"`.
-- [ ] **E. Ruff** — `ruff check .`, `ruff format .`, `ruff format --check .`; try an unused import + bad spacing.
-- [ ] **F. GitHub** — first commit (confirm `.venv` not tracked, `uv.lock` is); `gh auth login`; `gh repo create rag-project --public --source=. --push` (public because free-plan private repos lack branch protection).
-- [ ] **G. CI** — `.github/workflows/ci.yml`: on push/PR to `main`; `ubuntu-latest`; `actions/checkout` + `astral-sh/setup-uv` (check latest major versions); `uv sync --locked`; ruff check; ruff format --check; pytest. Job name `checks`.
-- [ ] **H. Branch protection** — Settings → Rules → Rulesets on default branch: restrict deletions, block force pushes, require PR (0 approvals), require status check `checks`.
-- [ ] **I. Daily flow** — branch → commit → push → `gh pr create --fill` → `gh pr checks --watch` → `gh pr merge --squash --delete-branch` → pull main.
-- [ ] **J. Break it on purpose** — failing-test PR (merge blocked); bad-formatting PR (which step catches it?); thought experiment: no `uv.lock` + `--locked`.
-- [ ] **K. Learning log** — Phase 0 entry + checkpoint answers, merged via PR.
+- [x] **C. `/health`** — `src/rag/main.py`: FastAPI instance `app`; `GET /health` → `{"status": "ok"}`. Run `uv run uvicorn rag.main:app --reload`, explore `/docs`, `curl -i`. Break it: rename `app`.
+- [x] **D. Test** — `tests/test_health.py` with `TestClient`: assert status 200 and body. `uv run pytest`. Break it: expect `"okay"`.
+- [x] **E. Ruff** — `ruff check .`, `ruff format .`, `ruff format --check .`; try an unused import + bad spacing.
+- [x] **F. GitHub** — first commit (confirm `.venv` not tracked, `uv.lock` is); `gh auth login`; `gh repo create rag-project --public --source=. --push` (public because free-plan private repos lack branch protection).
+- [x] **G. CI** — `.github/workflows/ci.yml`: on push/PR to `main`; `ubuntu-latest`; `actions/checkout` + `astral-sh/setup-uv` (check latest major versions); `uv sync --locked`; ruff check; ruff format --check; pytest. Job name `checks`.
+- [x] **H. Branch protection** — Settings → Rules → Rulesets on default branch: restrict deletions, block force pushes, require PR (0 approvals), require status check `checks`.
+- [x] **I. Daily flow** — branch → commit → push → `gh pr create --fill` → `gh pr checks --watch` → `gh pr merge --squash --delete-branch` → pull main.
+- [x] **J. Break it on purpose** — failing-test PR (merge blocked); bad-formatting PR (which step catches it?); thought experiment: no `uv.lock` + `--locked`.
+- [x] **K. Learning log** — Phase 0 entry + checkpoint answers, merged via PR.
 
 **Checkpoint questions (answer in learning log)**
 1. Dependency vs dev dependency — why does it matter for a Docker image later?
